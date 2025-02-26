@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="image/favicon.png">
+    <meta name="keywords" content="鱼吃鱼，Fish Eat Fish，鱼">
+    <meta name="description" content="Fish Eat Fish">
+    <title>Fish Eat Fish - 关于</title>
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/audio.css">
+    <script>
+        document.addEventListener('visibilitychange', function() {
+            document.title = document.visibilityState === 'hidden' 
+                ? 'Fish Eat Fish - 我藏好了 (๑ˉ∀ˉ๑)' 
+                : 'Fish Eat Fish - 被你发现了 (⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)';
+        });
+    </script>
+    <style>
+        /* 旋转提示样式 */
+        .rotate-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1000;
+        }
+        
+        /* 竖屏时显示旋转提示 */
+        @media only screen and (orientation: portrait) {
+            .rotate-message {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="backButton" id="backButton">
+        <img class="backGround" src="image/misc/back.png" alt="返回">
+    </button>
+
+    <div class="aboutContent">
+        <h1>关于</h1>
+        <div class="aboutBlock">
+            <h2>免责声明ヽ(=^･ω･^=)丿</h2>
+            <p>本游戏仅供学习交流使用，不得用于任何商业用途，由此带来的任何法律责任与后果，与本游戏开发者无关ヾ(･ω･`｡)</p>
+            <p>本游戏所使用的所有素材来源于网络，版权归素材原作者所有，如有侵权请联系本游戏作者进行删除ヽ(ﾟ∀ﾟ*)ﾉ━━━ｩ♪</p>
+        </div>
+        <div class="aboutBlock">
+            <h2>游玩方法o(〃'▽'〃)o</h2>
+            <p>按住操作摇杆让你的小鱼在海洋中自由移动φ(≧ω≦*)♪</p>
+            <p>你可以通过捕食其他鱼类来获得更大的体重（显示在角色上方）Ψ(￣∀￣)Ψ</p>
+            <p>你只能捕食体重小于你的鱼类，而体重大于你的鱼类可以把你吃掉哦ヾ|≧_≦|〃</p>
+            <p>要注意┗|｀O′|┛ 嗷~~，如果其他鱼鱼碰到你的血量条，你也会被吃掉哦(￣▽￣)~*</p>
+        </div>
+        <div class="aboutBlock">
+            <h2>联系作者w(ﾟДﾟ)w</h2>
+            <p>如果有什么疑问或建议，欢迎联系本游戏作者：</p>
+            <p>邮箱：politicalcommissar@hotmail.com</p>
+        </div>
+        <div class="aboutBlock">
+            <h2>版本信息</h2>
+            <p>当前版本：0.0.5 Beta</p>
+            <p>发布日期：2025年2月23日</p>
+        </div>
+    </div>
+
+    <div class="rotate-message">
+        请将设备旋转为横屏模式
+    </div>
+
+    <!-- 音乐播放器 -->
+    <div class="audio_player">
+        <h4 class="audio_player_title">音乐盒子</h4>
+        <audio id="myAudio" controls autoplay loop>
+            <source src="sounds/Ariel - Koko.mp3" type="audio/mpeg">
+            您的浏览器不支持 audio 元素。
+        </audio>
+        <div class="audio_player_playlist">
+            <ul id="playlist">
+                <li class="playlist_item"><a href="#" data-track="sounds/Ariel - Koko.mp3">Ariel - Koko</a></li>
+                <li class="playlist_item"><a href="#" data-track="sounds/PIKASONIC - Unbreakable.mp3">PIKASONIC - Unbreakable</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 音乐播放器 -->
+
+    <footer>
+        <p>&copy; <span id="currentYear"></span> Fish Eat Fish. All rights reserved. 未经授权禁止转载或用于任何商业用途。</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backButton = document.getElementById('backButton');
+            if (backButton) {
+                backButton.addEventListener('click', function() {
+                    try {
+                        console.log('返回按钮被点击');
+                        window.location.href = 'index.html';
+                    } catch (error) {
+                        console.error('返回时发生错误:', error);
+                        alert('返回时发生错误: ' + error.message);
+                    }
+                });
+            }
+
+            // 获取当前年份
+            const currentYear = new Date().getFullYear();
+            // 将当前年份插入到页面中
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) {
+                yearElement.textContent = currentYear;
+            }
+        });
+    </script>
+    <script src="js/landscape.js"></script>
+    <script src="js/music_player.js"></script>
+</body>
+</html>

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="image/favicon.png">
+    <meta name="keywords" content="鱼吃鱼，Fish Eat Fish，鱼">
+    <meta name="description" content="Fish Eat Fish">
+    <title>Fish Eat Fish</title>
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/audio_game.css">
+    <link rel="stylesheet" href="css/scrollbar.css">
+    <style>
+        /* 添加旋转提示样式 */
+        .rotate-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        /* 当设备竖屏时显示旋转提示 */
+        @media screen and (orientation: portrait) {
+            .rotate-message {
+                display: block;
+            }
+        }
+
+        /* 摇杆样式 */
+        #joystick-container {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        #joystick-background {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            position: relative;
+            z-index: 100;
+        }
+
+        #joystick-knob {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            position: absolute;
+            top: 25px; /* 初始位置在背景中心 */
+            left: 25px; /* 初始位置在背景中心 */
+            z-index: 100;
+        }
+
+        /* 主角样式 */
+        #hero {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10vh;
+            height: 10vh;
+            background-size: cover;
+            z-index: 1;
+        }
+
+        /* 主角血条样式 */
+        #hero .health-bar {
+            position: absolute;
+            bottom: -20px;
+            width: 100%;
+            text-align: center;
+            color: rgb(255, 187, 0);
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 3px;
+            border-radius: 5px;
+        }
+
+        /* 敌人样式 */
+        .enemy {
+            position: absolute;
+            width: 10vh;
+            height: 10vh;
+            background-size: cover;
+        }
+
+        /* 敌人血条样式 */
+        .enemy .health-bar {
+            position: absolute;
+            bottom: -20px;
+            width: 100%;
+            text-align: center;
+            color: rgb(255, 187, 0);
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 3px;
+            border-radius: 5px;
+        }
+
+        /* 主角不同方向样式 */
+        #hero.left {
+            background-image: url('image/fish_icon/main_left.png');
+        }
+
+        #hero.right {
+            background-image: url('image/fish_icon/main_right.png');
+        }
+
+        .enemy.left {
+            transform: scaleX(-1);
+        }
+
+        .enemy.right {
+            transform: scaleX(1);
+        }
+
+        /* 死亡图像样式 */
+        .death-image {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('image/fish_icon/bone.png'); /* 假设有一个死亡图像 */
+            background-size: cover;
+            animation: brownian-motion 3s linear infinite;
+        }
+
+        /* 随机背景样式 */
+        .enemy.random {
+            background-image: none;
+        }
+
+/* 随机背景样式 */
+.enemy.random-1 {
+            background-image: url('image/fish_icon/1.png');
+        }
+
+        .enemy.random-2 {
+            background-image: url('image/fish_icon/2.png'); 
+        }
+
+        .enemy.random-3 {
+            background-image: url('image/fish_icon/3.png');
+        }
+        .enemy.random-4 {
+            background-image: url('image/fish_icon/4.png');
+        }
+        .enemy.random-5 {
+            background-image: url('image/fish_icon/5.png');
+        }
+        .enemy.random-6 {
+            background-image: url('image/fish_icon/6.png');
+        }
+
+        .enemy.random-7 {
+            background-image: url('image/fish_icon/7.png'); 
+        }
+
+        .enemy.random-8 {
+            background-image: url('image/fish_icon/8.png');
+        }
+        .enemy.random-9 {
+            background-image: url('image/fish_icon/9.png');
+        }
+        .enemy.random-10 {
+            background-image: url('image/fish_icon/10.png');
+        }
+        .enemy.random-11 {
+            background-image: url('image/fish_icon/11.png');
+        }
+        .enemy.random-12 {
+            background-image: url('image/fish_icon/12.png');
+        }
+        .enemy.random-13 {
+            background-image: url('image/fish_icon/13.png');
+        }
+        .enemy.random-14 {
+            background-image: url('image/fish_icon/14.png');
+        }
+        .enemy.random-15 {
+            background-image: url('image/fish_icon/15.png');
+        }
+        .enemy.random-16 {
+            background-image: url('image/fish_icon/16.png');
+        }
+        .enemy.random-17 {
+            background-image: url('image/fish_icon/17.png');
+        }
+        .enemy.random-18 {
+            background-image: url('image/fish_icon/18.png');
+        }
+        .enemy.random-19 {
+            background-image: url('image/fish_icon/19.png');
+        }
+        .enemy.random-20 {
+            background-image: url('image/fish_icon/20.png');
+        }
+        .enemy.random-21 {
+            background-image: url('image/fish_icon/21.png');
+        }
+        .enemy.random-22 {
+            background-image: url('image/fish_icon/22.png');
+        }
+        .enemy.random-23 {
+            background-image: url('image/fish_icon/23.png');
+        }
+        .enemy.random-24 {
+            background-image: url('image/fish_icon/24.png');
+        }
+        .enemy.random-25 {
+            background-image: url('image/fish_icon/25.png');
+        }
+        .enemy.random-26 {
+            background-image: url('image/fish_icon/26.png');
+        }
+        .enemy.random-27 {
+            background-image: url('image/fish_icon/27.png');
+        }
+        .enemy.random-28 {
+            background-image: url('image/fish_icon/28.png');
+        }
+        .enemy.random-29 {
+            background-image: url('image/fish_icon/29.png');
+        }
+        .enemy.random-30 {
+            background-image: url('image/fish_icon/30.png');
+        }
+        .enemy.random-31 {
+            background-image: url('image/fish_icon/31.png');
+        }
+        .enemy.random-32 {
+            background-image: url('image/fish_icon/32.png');
+        }
+        .enemy.random-33 {
+            background-image: url('image/fish_icon/33.png');
+        }
+        .enemy.random-34 {
+            background-image: url('image/fish_icon/34.png');
+        }
+        .enemy.random-35 {
+            background-image: url('image/fish_icon/35.png');
+        }
+        .enemy.random-36 {
+            background-image: url('image/fish_icon/36.png');
+        }
+        .enemy.random-37 {
+            background-image: url('image/fish_icon/37.png');
+        }
+        .enemy.random-38 {
+            background-image: url('image/fish_icon/38.png');
+        }
+        .enemy.random-39 {
+            background-image: url('image/fish_icon/39.png');
+        }
+        .enemy.random-40 {
+            background-image: url('image/fish_icon/40.png');
+        }
+
+        /* 布朗运动动画 */
+        @keyframes brownian-motion {
+            from { transform: translateX(0) translateY(0); }
+            to { transform: translateX(calc(var(--viewport-width) * 2 * var(--random-x))) translateY(calc(var(--viewport-height) * 2 * var(--random-y))); }
+        }
+
+        .blood-particle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 0, 0, 0.7);
+            pointer-events: none;
+            animation: blood-spread 0.5s forwards;
+        }
+
+        @keyframes blood-spread {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+
+        .bubble {
+            position: absolute;
+            bottom: 0;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(173, 216, 230, 0.8);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: rise 3s linear infinite;
+        }
+
+        /* 气泡上升动画 */
+        @keyframes rise {
+            to {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+        .custom-alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 2000;
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .alert-content {
+            margin: 10px 0;
+        }
+
+        .alert-confirm {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        /* 粒子样式 */
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(173, 216, 230, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.8;
+    animation: particle-fade 2s forwards;
+}
+
+@keyframes particle-fade {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.enemy-particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(173, 216, 230, 0.8);
+    opacity: 0.8;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particle-fade 2s forwards;
+}
+
+    </style>
+</head>
+<body>
+    <!-- 主要代码区开始 -->
+    <button class="backButton" id="backButton">
+        <img class="backGround" src="image/misc/back.png" alt="返回">
+    </button>
+    <div id="hero" class="left"><div class="health-bar">100</div></div>
+    <div id="enemies-container"></div>
+    
+
+    <!-- 摇杆 -->
+    <div id="joystick-container">
+        <div id="joystick-background">
+            <div id="joystick-knob"></div>
+        </div>
+    </div>
+    <!-- 摇杆 -->
+
+    <div class="rotate-message">
+        请将设备旋转为横屏模式
+    </div>
+
+    <!-- 音乐播放器 -->
+    <div class="audio_player">
+        <h4 class="audio_player_title">音乐盒子</h4>
+        <audio id="myAudio" controls autoplay loop>
+            <source src="sounds/Ariel - Koko.mp3" type="audio/mpeg">
+            您的浏览器不支持 audio 元素。
+        </audio>
+        <div class="audio_player_playlist">
+            <ul id="playlist">
+                <li class="playlist_item"><a href="#" data-track="sounds/Ariel - Koko.mp3">Ariel - Koko</a></li>
+                <li class="playlist_item"><a href="#" data-track="sounds/PIKASONIC - Unbreakable.mp3">PIKASONIC - Unbreakable</a></li>
+            </ul>
+        </div>
+    </div>  
+
+        <!-- 在body底部添加自定义提示框 -->
+        <div class="custom-alert">
+            <div class="alert-content">主角死亡，游戏结束</div>
+            <button class="alert-confirm">再来一把</button>
+        </div>
+
+    <!-- 音乐播放器 -->
+
+    <footer>
+        <p>&copy; <span id="currentYear"></span> Fish Eat Fish. All rights reserved. 未经授权禁止转载或用于任何商业用途。</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 定义视口高度和宽度变量
+            let viewportHeight = window.innerHeight;
+            let viewportWidth = window.innerWidth;
+            let lastHeroTrailTime = 0;
+            let lastEnemyTrailTime = 0;
+
+            // 动态设置CSS变量
+            function updateViewportCSSVariables() {
+                document.documentElement.style.setProperty('--viewport-width', `${viewportWidth}px`);
+                document.documentElement.style.setProperty('--viewport-height', `${viewportHeight}px`);
+            }
+            updateViewportCSSVariables();
+            // 尾迹生成间隔时间（以毫秒为单位）
+
+
+
+
+            // 生成粒子
+function spawnParticle(x, y, className) {
+    let lastEnemyTrailTime = 0;
+    const particle = document.createElement('div');
+    particle.classList.add('particle', className);
+    particle.style.left = `${x}px`;
+    particle.style.top = `${y}px`;
+    document.body.appendChild(particle);
+    setTimeout(() => particle.remove(), 2000);
+}
+
+// 生成敌人粒子
+function spawnEnemyParticle(x, y) {
+    let lastEnemyTrailTime = 0;
+    spawnParticle(x, y, 'enemy-particle');
+}
+
+            // 获取元素引用
+            const joystickContainer = document.getElementById('joystick-container');
+            const joystickBackground = document.getElementById('joystick-background');
+            const joystickKnob = document.getElementById('joystick-knob');
+            const hero = document.getElementById('hero');
+            const enemiesContainer = document.getElementById('enemies-container');
+            const heroHealthBar = hero.querySelector('.health-bar');
+
+            // 检查必要元素是否存在
+            if (!hero) handleError('无法找到ID为hero的元素');
+            if (!enemiesContainer) handleError('无法找到ID为enemies-container的元素');
+
+            // 初始化变量
+            let isDragging = false;
+            let knobPosition = { x: 50, y: 50 }; // 初始位置在背景中心
+            const centerX = 50;
+            const centerY = 50;
+            const enemies = [];
+            const speedFactor = 0.05;
+            const scaleFactor = 0.02; // 缩放速率
+            let heroHealth = 100; // 主角初始血量
+            const maxEnemies = 12; // 设置敌人最大数量
+
+            // 更新主角血量
+            function updateHeroHealthBar() {
+                if (!heroHealthBar) {
+                    handleError('无法找到hero的health-bar元素');
+                    return;
+                }
+                heroHealthBar.textContent = heroHealth;
+            }
+
+            // 错误处理函数
+            function handleError(message) {
+                console.error(message);
+                alert(message);
+                clearInterval(spawnEnemyInterval);
+                throw new Error(message);
+            }
+
+            // 更新敌人血量
+            function updateEnemyHealthBar(enemy, health) {
+                enemy.querySelector('.health-bar').textContent = health;
+            }
+            
+            // 绑定事件
+            ['mousedown', 'touchstart'].forEach(event => joystickKnob.addEventListener(event, handleDragStart));
+            ['mousemove', 'touchmove'].forEach(event => joystickContainer.addEventListener(event, handleDragMove));
+            ['mouseup', 'touchend'].forEach(event => document.addEventListener(event, handleDragEnd));
+
+            function handleDragStart(e) {
+                isDragging = true;
+                handleMove(e);
+            }
+
+            function handleDragMove(e) {
+                if (isDragging) handleMove(e);
+            }
+
+            function handleDragEnd() {
+                isDragging = false;
+                resetKnobPosition();
+            }
+
+            function handleMove(e) {
+                let offsetX, offsetY;
+
+                if (e.type === 'touchmove' || e.type === 'touchstart') {
+                    // 对于触摸事件，确保触摸坐标被正确获取
+                    e.preventDefault(); // 阻止默认触摸行为
+                    const touch = e.touches[0];
+                    offsetX = touch.clientX;
+                    offsetY = touch.clientY;
+                } else {
+                    // 对于鼠标事件
+                    offsetX = e.clientX;
+                    offsetY = e.clientY;
+                }
+
+                updateJoystickPosition(offsetX, offsetY);
+            }
+
+            function updateJoystickPosition(x, y) {
+                const rect = joystickBackground.getBoundingClientRect();
+                const offsetX = x - rect.left;
+                const offsetY = y - rect.top;
+                const distance = Math.hypot(offsetX - centerX, offsetY - centerY);
+
+                if (distance > 50) {
+                    const angle = Math.atan2(offsetY - centerY, offsetX - centerX);
+                    knobPosition.x = centerX + 50 * Math.cos(angle);
+                    knobPosition.y = centerY + 50 * Math.sin(angle);
+                } else {
+                    knobPosition.x = offsetX;
+                    knobPosition.y = offsetY;
+                }
+
+                updateKnobPosition(knobPosition.x - centerX, knobPosition.y - centerY);
+            }
+
+            function updateKnobPosition(x, y) {
+                joystickKnob.style.left = `${x + 25}px`;
+                joystickKnob.style.top = `${y + 25}px`;
+            }
+
+            function resetKnobPosition() {
+                knobPosition = { x: centerX, y: centerY };
+                updateKnobPosition(0, 0);
+            }
+
+            // 主角移动逻辑
+            let heroVelocity = { x: 0, y: 0 };
+            let heroScale = 1; // 主角初始缩放比例
+
+function updateHeroPosition() {
+    const heroRect = hero.getBoundingClientRect();
+    const now = Date.now();
+    
+    // 控制主角尾迹生成间隔（300ms）
+    if (now - lastHeroTrailTime >= 300) {
+        spawnParticle(heroRect.left + heroRect.width / 2, heroRect.top + heroRect.height / 2);
+        lastHeroTrailTime = now;
+    }
+                // 更新主角的速度
+                heroVelocity.x = knobPosition.x - centerX;
+                heroVelocity.y = knobPosition.y - centerY;
+
+                // 根据速度更新主角的位置
+                let newLeft = hero.offsetLeft + heroVelocity.x * speedFactor;
+                let newTop = hero.offsetTop + heroVelocity.y * speedFactor;
+
+                // 确保主角不超出视口边缘
+                newLeft = Math.max(0, Math.min(newLeft, viewportWidth - heroRect.width));
+                newTop = Math.max(0, Math.min(newTop, viewportHeight - heroRect.height));
+
+                hero.style.left = `${newLeft}px`;
+                hero.style.top = `${newTop}px`;
+                hero.style.transform = `translate(-50%, -50%) scale(${heroScale})`;
+
+                // 根据移动方向更新主角的样式类
+                let directionClass = '';
+
+                if (heroVelocity.y < 0) directionClass += 'up ';
+                if (heroVelocity.y > 0) directionClass += 'down ';
+                if (heroVelocity.x < 0) directionClass += 'left ';
+                if (heroVelocity.x > 0) directionClass += 'right ';
+
+                hero.className = directionClass.trim() || 'left'; // 默认初始方向为左侧
+            }
+
+
+
+            // 敌人生成和移动逻辑
+            function spawnEnemy() {
+                if (enemies.length >= maxEnemies) return; // 检查是否已达到敌人数量上限
+
+                const enemy = document.createElement('div');
+                enemy.classList.add('enemy');
+
+
+
+                const enemyHealth = Math.floor(Math.random() * (maxHealth - minHealth + 1)) + minHealth;
+                const enemyHealthBar = document.createElement('div');
+                enemyHealthBar.classList.add('health-bar');
+                enemyHealthBar.textContent = enemyHealth;
+                enemy.appendChild(enemyHealthBar);
+
+                const randomTop = Math.random() * (viewportHeight - viewportHeight / 10);
+                enemy.style.top = `${randomTop}px`;
+
+                const randomDirection = Math.random() < 0.5 ? 'left' : 'right';
+                enemy.classList.add(randomDirection);
+
+                // 随机背景样式
+                const randomBackground = `random-${Math.floor(Math.random() * 40) + 1}`;
+                enemy.classList.add(randomBackground);
+
+                // 生成在视口内可见的位置
+                enemy.style.left = `${randomDirection === 'left' ? viewportWidth - 100 : 100}px`;
+                enemy.moveFunction = randomDirection === 'left' ? moveLeft : moveRight;
+                enemy.boundary = randomDirection === 'left' ? 0 : viewportWidth - 100;
+
+                // 初始化敌人缩放比例
+                enemy.scale = 1;
+
+   // 初始化敌人尾迹生成时间
+   enemy.lastTrailTime = 0;
+
+// 如果敌人从右边出现，翻转血条
+if (randomDirection === 'left') {
+    enemyHealthBar.style.transform = 'scaleX(-1)';
+}
+
+enemiesContainer.appendChild(enemy);
+enemies.push({ element: enemy, health: enemyHealth });
+}
+
+
+            
+// 敌人生成和移动逻辑
+function spawnEnemy() {
+    if (enemies.length >= maxEnemies) return; // 检查是否已达到敌人数量上限
+
+    const enemy = document.createElement('div');
+    enemy.classList.add('enemy');
+
+    // 根据主角血量设置敌人血量范围
+    let minHealth, maxHealth;
+    if (heroHealth > 5000) {
+        minHealth = 4900;
+        maxHealth = 5800;
+    }else if (heroHealth > 3800) {
+        minHealth = 3700;
+        maxHealth = 5000;
+    } else if (heroHealth > 3200) {
+        minHealth = 3100;
+        maxHealth = 3800;
+    } else if (heroHealth > 2600) {
+        minHealth = 2450;
+        maxHealth = 3200;
+    } else if (heroHealth > 2000) {
+        minHealth = 1850;
+        maxHealth = 2600;
+    } else if (heroHealth > 1500) {
+        minHealth = 1400;
+        maxHealth = 2000;
+    }else if (heroHealth > 900) {
+        minHealth = 800;
+        maxHealth = 1200;
+    } else if (heroHealth > 600) {
+        minHealth = 500;
+        maxHealth = 900;
+    } else if (heroHealth > 300) {
+        minHealth = 260;
+        maxHealth = 500;
+    } else if (heroHealth > 99) {
+        minHealth = 70;
+        maxHealth = 300;
+    } else {
+        minHealth = 50; // 默认最小血量
+        maxHealth = 114514; // 默认最大血量
+    }
+
+    const enemyHealth = Math.floor(Math.random() * (maxHealth - minHealth + 1)) + minHealth;
+    const enemyHealthBar = document.createElement('div');
+    enemyHealthBar.classList.add('health-bar');
+    enemyHealthBar.textContent = enemyHealth;
+    enemy.appendChild(enemyHealthBar);
+
+    const randomTop = Math.random() * (viewportHeight - viewportHeight / 10);
+    enemy.style.top = `${randomTop}px`;
+
+    const randomDirection = Math.random() < 0.5 ? 'left' : 'right';
+    enemy.classList.add(randomDirection);
+
+    // 随机背景样式
+    const randomBackground = `random-${Math.floor(Math.random() * 40) + 1}`;
+    enemy.classList.add(randomBackground);
+
+    // 生成在视口内可见的位置
+    enemy.style.left = `${randomDirection === 'left' ? viewportWidth - 100 : 100}px`;
+    enemy.moveFunction = randomDirection === 'left' ? moveLeft : moveRight;
+    enemy.boundary = randomDirection === 'left' ? 0 : viewportWidth - 100;
+
+    // 初始化敌人缩放比例
+    enemy.scale = 1;
+
+    // 初始化敌人尾迹生成时间
+    enemy.lastTrailTime = 0;
+
+    // 如果敌人从右边出现，翻转血条
+    if (randomDirection === 'left') {
+        enemyHealthBar.style.transform = 'scaleX(-1)';
+    }
+
+    enemiesContainer.appendChild(enemy);
+    enemies.push({ element: enemy, health: enemyHealth });
+}
+
+function moveLeft(position, boundary, element) {
+    const now = Date.now();
+    
+    // 控制尾迹生成间隔（300ms）
+    if (now - element.lastTrailTime >= 300) {
+        const enemyRect = element.getBoundingClientRect();
+        // 在敌人的右侧生成尾迹
+        spawnEnemyParticle(enemyRect.right, enemyRect.top + enemyRect.height / 2);
+        element.lastTrailTime = now;
+    }
+    return Math.max(boundary, position - 1);
+}
+
+function moveRight(position, boundary, element) {
+    const now = Date.now();
+    
+    // 控制尾迹生成间隔（300ms）
+    if (now - element.lastTrailTime >= 300) {
+        const enemyRect = element.getBoundingClientRect();
+        // 在敌人的左侧生成尾迹
+        spawnEnemyParticle(enemyRect.left, enemyRect.top + enemyRect.height / 2);
+        element.lastTrailTime = now;
+    }
+    return Math.min(boundary, position + 1);
+}
+
+
+function updateEnemiesPosition() {
+    enemies.forEach((enemy, index) => {
+        const newPosition = enemy.element.moveFunction(enemy.element.offsetLeft, enemy.element.boundary, enemy.element);
+
+        // 更新敌人位置
+        enemy.element.style.left = `${newPosition}px`;
+
+        // 如果敌人到达边界，移除敌人
+        if (newPosition === enemy.element.boundary) {
+            enemy.element.remove();
+            enemies.splice(index, 1);
+        }
+    });
+}
+
+            // 检测碰撞
+            function checkCollision(rect1, rect2) {
+                return !(rect1.right < rect2.left || rect1.left > rect2.right ||
+                         rect1.bottom < rect2.top || rect1.top > rect2.bottom);
+            }
+            const gameController = {
+                intervals: [],
+                timeouts: [],
+                animations: [],
+                elementsToRemove: ["hero","enemies-container","joystick-container","rotate-message","audio_player"]
+            };
+            // 停止所有脚本
+            function stopAllScripts() {
+                // 清除所有定时器
+                gameController.intervals.forEach(clearInterval);
+                gameController.timeouts.forEach(clearTimeout);
+                // 停止动画帧
+                gameController.animations.forEach(cancelAnimationFrame);
+                // 移除指定元素
+                gameController.elementsToRemove.forEach(hero => {
+                    if (document.documentElement.contains()) return;
+                    hero.remove();
+                });
+            }
+
+            // 自定义提示方法
+            function showCustomAlert(message) {
+                const alertBox = document.querySelector('.custom-alert');
+                const content = alertBox.querySelector('.alert-content');
+                const confirmBtn = alertBox.querySelector('.alert-confirm');
+                
+                content.textContent = message;
+                alertBox.style.display = 'block';
+                
+                // 确认按钮事件处理
+                confirmBtn.onclick = function() {
+                    alertBox.style.display = 'none';
+                    refreshPage();
+                }
+            }
+
+            // 修改后的碰撞处理
+            function handleCollisions() {
+                const heroRect = hero.getBoundingClientRect();
+                enemies.forEach((enemy, index) => {
+                    const enemyRect = enemy.element.getBoundingClientRect();
+                    if (checkCollision(heroRect, enemyRect)) {
+                        if (heroHealth > enemy.health) {
+                        enemy.element.remove();
+                        enemies.splice(index, 1);
+                        heroHealth += Math.floor(enemy.health * 0.15);
+                        updateHeroHealthBar();
+    
+                        // 生成死亡图像和血迹粒子
+                        spawnDeathImage(enemyRect.left, enemyRect.top);
+                    } 
+                    else {
+                    showCustomAlert('Gamer Over!');
+                    stopAllScripts();
+                    }
+                    }
+
+                });
+            }
+            
+            // 生成死亡图像
+            function spawnDeathImage(left, top) {
+                const deathImage = document.createElement('div');
+                deathImage.classList.add('death-image');
+
+                // 设置初始位置
+                deathImage.style.left = `${left}px`;
+                deathImage.style.top = `${top}px`;
+
+                // 设置随机布朗运动参数
+                deathImage.style.setProperty('--random-x', Math.random() - 0.5);
+                deathImage.style.setProperty('--random-y', Math.random() - 0.5);
+
+                // 移除死亡图像以避免无限增加
+                setTimeout(() => deathImage.remove(), 6000);
+
+                document.body.appendChild(deathImage);
+            }
+
+            // 刷新网页
+            function refreshPage() {
+                location.reload();
+            }
+
+            // 主角逐帧移动
+            function gameLoop() {
+                updateHeroPosition();
+                updateEnemiesPosition();
+                handleCollisions();
+                requestAnimationFrame(gameLoop);
+            }
+
+            // 开始游戏循环
+            gameLoop();
+
+            // 返回按钮事件
+            document.getElementById('backButton').addEventListener('click', function() {
+                try {
+                    console.log('返回按钮被点击');
+                    window.open('index.html', '_self');
+                } catch (error) {
+                    handleError('返回时发生错误: ' + error.message);
+                }
+            });
+
+            // 获取当前年份
+            try {
+                const currentYear = new Date().getFullYear();
+                const yearElement = document.getElementById('currentYear');
+                if (yearElement) yearElement.textContent = currentYear;
+                else handleError('无法找到ID为currentYear的元素');
+            } catch (error) {
+                handleError('获取当前年份时出错：' + error.message);
+            }
+
+            const spawnEnemyInterval = setInterval(spawnEnemy, 3000);
+
+            // 监听窗口大小变化
+            window.addEventListener('resize', () => {
+                viewportHeight = window.innerHeight;
+                viewportWidth = window.innerWidth;
+                updateViewportCSSVariables();
+                resetKnobPosition();
+            });
+
+            // 定时生成气泡
+            const spawnBubbleInterval = setInterval(spawnBubble, 500);
+
+            // 生成气泡
+            function spawnBubble() {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+
+                // 随机位置
+                const randomLeft = Math.random() * (viewportWidth - 20);
+                bubble.style.left = `${randomLeft}px`;
+
+                // 随机大小
+                const randomSize = Math.random() * 15 + 10;
+                bubble.style.width = `${randomSize}px`;
+                bubble.style.height = `${randomSize}px`;
+
+                document.body.appendChild(bubble);
+
+                // 移除气泡以避免无限增加
+                setTimeout(() => bubble.remove(), 3000);
+            }
+            }
+        );
+    </script>
+    <script src="js/landscape.js"></script>
+    <script src="js/music_player.js"></script>
+</body>
+</html>

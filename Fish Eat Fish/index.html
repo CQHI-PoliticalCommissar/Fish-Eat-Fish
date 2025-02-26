@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="image/favicon.png">
+    <meta name="keywords" content="鱼吃鱼，Fish Eat Fish，鱼">
+    <meta name="description" content="Fish Eat Fish">
+    <title>Fish Eat Fish</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/audio.css">
+    <link rel="stylesheet" href="css/scrollbar.css">
+    <script>
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                changeTitle('我藏好了 (๑ˉ∀ˉ๑)');
+            } else {
+                changeTitle('被你发现了 (⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)');
+            }
+        });
+
+        function changeTitle(message) {
+            document.title = 'Fish Eat Fish - ' + message;
+        }
+    </script>
+    <style>
+        /* 添加旋转提示样式 */
+        .rotate-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        /* 当设备竖屏时显示旋转提示 */
+        @media screen and (orientation: portrait) {
+            .rotate-message {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="indexTitle">
+        <img class="indexTitleImg" src="image/indexTitle.png" alt="标题">
+    </div>
+    <div class="buttons">
+        <button class="Button" id="startButton">
+            <img class="backGround" src="image/misc/start.png" alt="启动游戏">
+        </button>
+
+        <button class="Button" id="aboutButton">
+            <img class="backGround" src="image/misc/about.png" alt="关于">
+        </button>
+    </div>
+
+    <div class="rotate-message">
+        请将设备旋转为横屏模式
+    </div>
+
+    <!-- 音乐播放器 -->
+    <div class="audio_player">
+        <h4 class="audio_player_title">音乐盒子</h4>
+        <audio id="myAudio" controls autoplay loop>
+            <source src="sounds/Ariel - Koko.mp3" type="audio/mpeg">
+            您的浏览器不支持 audio 元素。
+        </audio>
+        <div class="audio_player_playlist">
+            <ul id="playlist">
+                <li class="playlist_item"><a href="#" data-track="sounds/Ariel - Koko.mp3">Ariel - Koko</a></li>
+                <li class="playlist_item"><a href="#" data-track="sounds/PIKASONIC - Unbreakable.mp3">PIKASONIC - Unbreakable</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 音乐播放器 -->
+
+    <footer>
+        <p>&copy; <span id="currentYear"></span> Fish Eat Fish. All rights reserved. 未经授权禁止转载或用于任何商业用途。</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取按钮元素
+            const startButton = document.getElementById('startButton');
+            const aboutButton = document.getElementById('aboutButton');
+
+            // 添加事件监听器
+            startButton.addEventListener('click', function() {
+                try {
+                    console.log('启动游戏按钮被点击');
+                    window.location.href = 'game.html'; // 打开游戏页面
+                    // 在这里添加启动游戏的逻辑（如果需要）
+                } catch (error) {
+                    console.error('启动游戏时发生错误:', error);
+                    alert('启动游戏时发生错误: ' + error.message);
+                }
+            });
+
+            aboutButton.addEventListener('click', function() {
+                try {
+                    console.log('关于按钮被点击');
+                    window.location.href = 'about.html'; // 打开关于页面
+                    // 在这里添加关于逻辑（如果需要）
+                } catch (error) {
+                    console.error('打开关于页面时发生错误:', error);
+                    alert('打开关于页面时发生错误: ' + error.message);
+                }
+            });
+
+            // 获取当前年份并插入到页面中
+            const currentYear = new Date().getFullYear();
+            document.getElementById('currentYear').textContent = currentYear;
+        });
+    </script>
+
+    <script src="js/landscape.js"></script>
+    <script src="js/music_player.js"></script>
+</body>
+</html>
