@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,8 +58,10 @@
             background-color: rgba(255, 255, 255, 0.5);
             border-radius: 50%;
             position: absolute;
-            top: 25px; /* 初始位置在背景中心 */
-            left: 25px; /* 初始位置在背景中心 */
+            top: 25px;
+            /* 初始位置在背景中心 */
+            left: 25px;
+            /* 初始位置在背景中心 */
             z-index: 100;
         }
 
@@ -128,7 +131,8 @@
             position: absolute;
             width: 50px;
             height: 50px;
-            background-image: url('image/fish_icon/bone.png'); /* 假设有一个死亡图像 */
+            background-image: url('image/fish_icon/bone.png');
+            /* 假设有一个死亡图像 */
             background-size: cover;
             animation: brownian-motion 3s linear infinite;
         }
@@ -138,153 +142,220 @@
             background-image: none;
         }
 
-/* 随机背景样式 */
-.enemy.random-1 {
+        /* 随机背景样式 */
+        .enemy.random-1 {
             background-image: url('image/fish_icon/1.png');
         }
 
         .enemy.random-2 {
-            background-image: url('image/fish_icon/2.png'); 
+            background-image: url('image/fish_icon/2.png');
         }
 
         .enemy.random-3 {
             background-image: url('image/fish_icon/3.png');
         }
+
         .enemy.random-4 {
             background-image: url('image/fish_icon/4.png');
         }
+
         .enemy.random-5 {
             background-image: url('image/fish_icon/5.png');
         }
+
         .enemy.random-6 {
             background-image: url('image/fish_icon/6.png');
         }
 
         .enemy.random-7 {
-            background-image: url('image/fish_icon/7.png'); 
+            background-image: url('image/fish_icon/7.png');
         }
 
         .enemy.random-8 {
             background-image: url('image/fish_icon/8.png');
         }
+
         .enemy.random-9 {
             background-image: url('image/fish_icon/9.png');
         }
+
         .enemy.random-10 {
             background-image: url('image/fish_icon/10.png');
         }
+
         .enemy.random-11 {
             background-image: url('image/fish_icon/11.png');
         }
+
         .enemy.random-12 {
             background-image: url('image/fish_icon/12.png');
         }
+
         .enemy.random-13 {
             background-image: url('image/fish_icon/13.png');
         }
+
         .enemy.random-14 {
             background-image: url('image/fish_icon/14.png');
         }
+
         .enemy.random-15 {
             background-image: url('image/fish_icon/15.png');
         }
+
         .enemy.random-16 {
             background-image: url('image/fish_icon/16.png');
         }
+
         .enemy.random-17 {
             background-image: url('image/fish_icon/17.png');
         }
+
         .enemy.random-18 {
             background-image: url('image/fish_icon/18.png');
         }
+
         .enemy.random-19 {
             background-image: url('image/fish_icon/19.png');
         }
+
         .enemy.random-20 {
             background-image: url('image/fish_icon/20.png');
         }
+
         .enemy.random-21 {
             background-image: url('image/fish_icon/21.png');
         }
+
         .enemy.random-22 {
             background-image: url('image/fish_icon/22.png');
         }
+
         .enemy.random-23 {
             background-image: url('image/fish_icon/23.png');
         }
+
         .enemy.random-24 {
             background-image: url('image/fish_icon/24.png');
         }
+
         .enemy.random-25 {
             background-image: url('image/fish_icon/25.png');
         }
+
         .enemy.random-26 {
             background-image: url('image/fish_icon/26.png');
         }
+
         .enemy.random-27 {
             background-image: url('image/fish_icon/27.png');
         }
+
         .enemy.random-28 {
             background-image: url('image/fish_icon/28.png');
         }
+
         .enemy.random-29 {
             background-image: url('image/fish_icon/29.png');
         }
+
         .enemy.random-30 {
             background-image: url('image/fish_icon/30.png');
         }
+
         .enemy.random-31 {
             background-image: url('image/fish_icon/31.png');
         }
+
         .enemy.random-32 {
             background-image: url('image/fish_icon/32.png');
         }
+
         .enemy.random-33 {
             background-image: url('image/fish_icon/33.png');
         }
+
         .enemy.random-34 {
             background-image: url('image/fish_icon/34.png');
         }
+
         .enemy.random-35 {
             background-image: url('image/fish_icon/35.png');
         }
+
         .enemy.random-36 {
             background-image: url('image/fish_icon/36.png');
         }
+
         .enemy.random-37 {
             background-image: url('image/fish_icon/37.png');
         }
+
         .enemy.random-38 {
             background-image: url('image/fish_icon/38.png');
         }
+
         .enemy.random-39 {
             background-image: url('image/fish_icon/39.png');
         }
+
         .enemy.random-40 {
             background-image: url('image/fish_icon/40.png');
         }
 
         /* 布朗运动动画 */
         @keyframes brownian-motion {
-            from { transform: translateX(0) translateY(0); }
-            to { transform: translateX(calc(var(--viewport-width) * 2 * var(--random-x))) translateY(calc(var(--viewport-height) * 2 * var(--random-y))); }
+            from {
+                transform: translateX(0) translateY(0);
+            }
+
+            to {
+                transform: translateX(calc(var(--viewport-width) * 2 * var(--random-x))) translateY(calc(var(--viewport-height) * 2 * var(--random-y)));
+            }
         }
 
-        .blood-particle {
+        /* 死亡图像样式 */
+        .meat-image {
             position: absolute;
-            border-radius: 50%;
-            background-color: rgba(255, 0, 0, 0.7);
-            pointer-events: none;
-            animation: blood-spread 0.5s forwards;
+            width: 24px;
+            height: 24px;
+            background-image: url('image/fish_icon/fish-meat-32.png');
+            /* 假设有一个死亡图像 */
+            background-size: cover;
+            animation: brownian-motion 3s linear infinite;
         }
 
-        @keyframes blood-spread {
+        .eat-image {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            background-image: url('image/fish_icon/eat.png');
+            background-size: cover;
+            animation: eat-image 1s linear infinite;
+        }
+        @keyframes eat-image {
             0% {
-                transform: scale(1);
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+
+            25% {
+                transform: translateX(0) translateY(0);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translateX(calc(var(--viewport-width) * 2 * var(--random-x))) translateY(calc(var(--viewport-height) * 2 * var(--random-y)));
                 opacity: 1;
             }
+
+            75% {
+                transform: translateX(0) translateY(0);
+                opacity: 0.5;
+            }
+
             100% {
-                transform: scale(3);
+                transform: translateX(0) translateY(0);
                 opacity: 0;
             }
         }
@@ -298,7 +369,7 @@
             background-color: rgba(173, 216, 230, 0.8);
             border-radius: 50%;
             opacity: 0.8;
-            animation: rise 3s linear infinite;
+            animation: rise 30s linear infinite;
         }
 
         /* 气泡上升动画 */
@@ -308,19 +379,20 @@
                 opacity: 0;
             }
         }
+
         .custom-alert {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             color: white;
             padding: 20px;
             border-radius: 10px;
             text-align: center;
             z-index: 2000;
-            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
         .alert-content {
@@ -336,50 +408,57 @@
             cursor: pointer;
             margin-top: 10px;
         }
+
         /* 粒子样式 */
-.particle {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: rgba(173, 216, 230, 0.8);
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0.8;
-    animation: particle-fade 2s forwards;
-}
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(173, 216, 230, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: particle-fade 2s forwards;
+        }
 
-@keyframes particle-fade {
-    0% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scale(2);
-        opacity: 0;
-    }
-}
+        @keyframes particle-fade {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
 
-.enemy-particle {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: rgba(173, 216, 230, 0.8);
-    opacity: 0.8;
-    border-radius: 50%;
-    pointer-events: none;
-    animation: particle-fade 2s forwards;
-}
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
 
+        .enemy-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(173, 216, 230, 0.8);
+            opacity: 0.8;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particle-fade 2s forwards;
+        }
     </style>
 </head>
+
 <body>
     <!-- 主要代码区开始 -->
     <button class="backButton" id="backButton">
         <img class="backGround" src="image/misc/back.png" alt="返回">
     </button>
-    <div id="hero" class="left"><div class="health-bar">100</div></div>
+    <button class="backButton" id="fullscreen-btn">
+        <img class="backGround" src="image/misc/fullscreen.png" alt="全屏">
+    </button>
+    <div id="hero" class="left">
+        <div class="health-bar">100</div>
+    </div>
     <div id="enemies-container"></div>
-    
+
 
     <!-- 摇杆 -->
     <div id="joystick-container">
@@ -403,16 +482,17 @@
         <div class="audio_player_playlist">
             <ul id="playlist">
                 <li class="playlist_item"><a href="#" data-track="sounds/Ariel - Koko.mp3">Ariel - Koko</a></li>
-                <li class="playlist_item"><a href="#" data-track="sounds/PIKASONIC - Unbreakable.mp3">PIKASONIC - Unbreakable</a></li>
+                <li class="playlist_item"><a href="#" data-track="sounds/PIKASONIC - Unbreakable.mp3">PIKASONIC -
+                        Unbreakable</a></li>
             </ul>
         </div>
-    </div>  
+    </div>
 
-        <!-- 在body底部添加自定义提示框 -->
-        <div class="custom-alert">
-            <div class="alert-content">主角死亡，游戏结束</div>
-            <button class="alert-confirm">再来一把</button>
-        </div>
+    <!-- 在body底部添加自定义提示框 -->
+    <div class="custom-alert">
+        <div class="alert-content">主角死亡，游戏结束</div>
+        <button class="alert-confirm">再来一把</button>
+    </div>
 
     <!-- 音乐播放器 -->
 
@@ -420,6 +500,31 @@
         <p>&copy; <span id="currentYear"></span> Fish Eat Fish. All rights reserved. 未经授权禁止转载或用于任何商业用途。</p>
     </footer>
     <script>
+        // 1. 全屏功能封装
+function toggleFullscreen(element = document.documentElement) {
+  if (!document.fullscreenElement) {
+    // 进入全屏
+    element.requestFullscreen().catch(err => {
+      console.error(`全屏请求失败: ${err}`);
+    });
+  } else {
+    // 退出全屏
+    document.exitFullscreen();
+  }
+}
+
+// 2. 使用示例（必须由用户手势触发）
+document.getElementById('fullscreen-btn').addEventListener('click', () => {
+  toggleFullscreen();
+});
+
+// 3. 全屏状态检测
+document.addEventListener('fullscreenchange', () => {
+  console.log('全屏状态:', document.fullscreenElement ? '已全屏' : '已退出');
+});
+
+
+
         document.addEventListener('DOMContentLoaded', () => {
             // 定义视口高度和宽度变量
             let viewportHeight = window.innerHeight;
@@ -433,33 +538,28 @@
                 document.documentElement.style.setProperty('--viewport-height', `${viewportHeight}px`);
             }
             updateViewportCSSVariables();
-            // 尾迹生成间隔时间（以毫秒为单位）
 
+            function spawnParticle(x, y, className) {
+                let lastEnemyTrailTime = 0;
+                const particle = document.createElement('div');
+                particle.classList.add('particle', className);
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 2000);
+            }
 
-
-
-            // 生成粒子
-function spawnParticle(x, y, className) {
-    let lastEnemyTrailTime = 0;
-    const particle = document.createElement('div');
-    particle.classList.add('particle', className);
-    particle.style.left = `${x}px`;
-    particle.style.top = `${y}px`;
-    document.body.appendChild(particle);
-    setTimeout(() => particle.remove(), 2000);
-}
-
-// 生成敌人粒子
-function spawnEnemyParticle(x, y) {
-    let lastEnemyTrailTime = 0;
-    spawnParticle(x, y, 'enemy-particle');
-}
+            // 生成敌人粒子
+            function spawnEnemyParticle(x, y) {
+                let lastEnemyTrailTime = 0;
+                spawnParticle(x, y, 'enemy-particle');
+            }
 
             // 获取元素引用
             const joystickContainer = document.getElementById('joystick-container');
             const joystickBackground = document.getElementById('joystick-background');
             const joystickKnob = document.getElementById('joystick-knob');
-            const hero = document.getElementById('hero');
+            var hero = document.getElementById('hero');
             const enemiesContainer = document.getElementById('enemies-container');
             const heroHealthBar = hero.querySelector('.health-bar');
 
@@ -499,7 +599,7 @@ function spawnEnemyParticle(x, y) {
             function updateEnemyHealthBar(enemy, health) {
                 enemy.querySelector('.health-bar').textContent = health;
             }
-            
+
             // 绑定事件
             ['mousedown', 'touchstart'].forEach(event => joystickKnob.addEventListener(event, handleDragStart));
             ['mousemove', 'touchmove'].forEach(event => joystickContainer.addEventListener(event, handleDragMove));
@@ -528,7 +628,7 @@ function spawnEnemyParticle(x, y) {
                     const touch = e.touches[0];
                     offsetX = touch.clientX;
                     offsetY = touch.clientY;
-                } else {
+                } else if (e.type === 'mousemove' || e.type === 'mousedown') {
                     // 对于鼠标事件
                     offsetX = e.clientX;
                     offsetY = e.clientY;
@@ -569,15 +669,15 @@ function spawnEnemyParticle(x, y) {
             let heroVelocity = { x: 0, y: 0 };
             let heroScale = 1; // 主角初始缩放比例
 
-function updateHeroPosition() {
-    const heroRect = hero.getBoundingClientRect();
-    const now = Date.now();
-    
-    // 控制主角尾迹生成间隔（300ms）
-    if (now - lastHeroTrailTime >= 300) {
-        spawnParticle(heroRect.left + heroRect.width / 2, heroRect.top + heroRect.height / 2);
-        lastHeroTrailTime = now;
-    }
+            function updateHeroPosition() {
+                const heroRect = hero.getBoundingClientRect();
+                const now = Date.now();
+
+                // 控制主角尾迹生成间隔（300ms）
+                if (now - lastHeroTrailTime >= 300) {
+                    spawnParticle(heroRect.left + heroRect.width / 2, heroRect.top + heroRect.height / 2);
+                    lastHeroTrailTime = now;
+                }
                 // 更新主角的速度
                 heroVelocity.x = knobPosition.x - centerX;
                 heroVelocity.y = knobPosition.y - centerY;
@@ -640,154 +740,127 @@ function updateHeroPosition() {
                 // 初始化敌人缩放比例
                 enemy.scale = 1;
 
-   // 初始化敌人尾迹生成时间
-   enemy.lastTrailTime = 0;
+                // 初始化敌人尾迹生成时间
+                enemy.lastTrailTime = 0;
 
-// 如果敌人从右边出现，翻转血条
-if (randomDirection === 'left') {
-    enemyHealthBar.style.transform = 'scaleX(-1)';
-}
+                // 如果敌人从右边出现，翻转血条
+                if (randomDirection === 'left') {
+                    enemyHealthBar.style.transform = 'scaleX(-1)';
+                }
 
-enemiesContainer.appendChild(enemy);
-enemies.push({ element: enemy, health: enemyHealth });
-}
-
-
-            
-// 敌人生成和移动逻辑
-function spawnEnemy() {
-    if (enemies.length >= maxEnemies) return; // 检查是否已达到敌人数量上限
-
-    const enemy = document.createElement('div');
-    enemy.classList.add('enemy');
-
-    // 根据主角血量设置敌人血量范围
-    let minHealth, maxHealth;
-    if (heroHealth > 5000) {
-        minHealth = 4900;
-        maxHealth = 5800;
-    }else if (heroHealth > 3800) {
-        minHealth = 3700;
-        maxHealth = 5000;
-    } else if (heroHealth > 3200) {
-        minHealth = 3100;
-        maxHealth = 3800;
-    } else if (heroHealth > 2600) {
-        minHealth = 2450;
-        maxHealth = 3200;
-    } else if (heroHealth > 2000) {
-        minHealth = 1850;
-        maxHealth = 2600;
-    } else if (heroHealth > 1500) {
-        minHealth = 1400;
-        maxHealth = 2000;
-    }else if (heroHealth > 900) {
-        minHealth = 800;
-        maxHealth = 1200;
-    } else if (heroHealth > 600) {
-        minHealth = 500;
-        maxHealth = 900;
-    } else if (heroHealth > 300) {
-        minHealth = 260;
-        maxHealth = 500;
-    } else if (heroHealth > 99) {
-        minHealth = 70;
-        maxHealth = 300;
-    } else {
-        minHealth = 50; // 默认最小血量
-        maxHealth = 114514; // 默认最大血量
-    }
-
-    const enemyHealth = Math.floor(Math.random() * (maxHealth - minHealth + 1)) + minHealth;
-    const enemyHealthBar = document.createElement('div');
-    enemyHealthBar.classList.add('health-bar');
-    enemyHealthBar.textContent = enemyHealth;
-    enemy.appendChild(enemyHealthBar);
-
-    const randomTop = Math.random() * (viewportHeight - viewportHeight / 10);
-    enemy.style.top = `${randomTop}px`;
-
-    const randomDirection = Math.random() < 0.5 ? 'left' : 'right';
-    enemy.classList.add(randomDirection);
-
-    // 随机背景样式
-    const randomBackground = `random-${Math.floor(Math.random() * 40) + 1}`;
-    enemy.classList.add(randomBackground);
-
-    // 生成在视口内可见的位置
-    enemy.style.left = `${randomDirection === 'left' ? viewportWidth - 100 : 100}px`;
-    enemy.moveFunction = randomDirection === 'left' ? moveLeft : moveRight;
-    enemy.boundary = randomDirection === 'left' ? 0 : viewportWidth - 100;
-
-    // 初始化敌人缩放比例
-    enemy.scale = 1;
-
-    // 初始化敌人尾迹生成时间
-    enemy.lastTrailTime = 0;
-
-    // 如果敌人从右边出现，翻转血条
-    if (randomDirection === 'left') {
-        enemyHealthBar.style.transform = 'scaleX(-1)';
-    }
-
-    enemiesContainer.appendChild(enemy);
-    enemies.push({ element: enemy, health: enemyHealth });
-}
-
-function moveLeft(position, boundary, element) {
-    const now = Date.now();
-    
-    // 控制尾迹生成间隔（300ms）
-    if (now - element.lastTrailTime >= 300) {
-        const enemyRect = element.getBoundingClientRect();
-        // 在敌人的右侧生成尾迹
-        spawnEnemyParticle(enemyRect.right, enemyRect.top + enemyRect.height / 2);
-        element.lastTrailTime = now;
-    }
-    return Math.max(boundary, position - 1);
-}
-
-function moveRight(position, boundary, element) {
-    const now = Date.now();
-    
-    // 控制尾迹生成间隔（300ms）
-    if (now - element.lastTrailTime >= 300) {
-        const enemyRect = element.getBoundingClientRect();
-        // 在敌人的左侧生成尾迹
-        spawnEnemyParticle(enemyRect.left, enemyRect.top + enemyRect.height / 2);
-        element.lastTrailTime = now;
-    }
-    return Math.min(boundary, position + 1);
-}
+                enemiesContainer.appendChild(enemy);
+                enemies.push({ element: enemy, health: enemyHealth });
+            }
 
 
-function updateEnemiesPosition() {
-    enemies.forEach((enemy, index) => {
-        const newPosition = enemy.element.moveFunction(enemy.element.offsetLeft, enemy.element.boundary, enemy.element);
 
-        // 更新敌人位置
-        enemy.element.style.left = `${newPosition}px`;
+            // 敌人生成和移动逻辑
+            function spawnEnemy() {
+                if (enemies.length >= maxEnemies) return; // 检查是否已达到敌人数量上限
 
-        // 如果敌人到达边界，移除敌人
-        if (newPosition === enemy.element.boundary) {
-            enemy.element.remove();
-            enemies.splice(index, 1);
-        }
-    });
-}
+                const enemy = document.createElement('div');
+                enemy.classList.add('enemy');
 
-            // 检测碰撞
+                // 根据主角血量设置敌人血量范围
+                let minHealth, maxHealth;
+                minHealth = 10;
+                maxHealth = 300;
+                if (heroHealth > maxHealth) {
+                    minHealth = heroHealth - 90;
+                    maxHealth = heroHealth + 200;
+                }
+
+                const enemyHealth = Math.floor(Math.random() * (maxHealth - minHealth + 1)) + minHealth;
+                const enemyHealthBar = document.createElement('div');
+                enemyHealthBar.classList.add('health-bar');
+                enemyHealthBar.textContent = enemyHealth;
+                enemy.appendChild(enemyHealthBar);
+
+                const randomTop = Math.random() * (viewportHeight - viewportHeight / 10);
+                enemy.style.top = `${randomTop}px`;
+
+                const randomDirection = Math.random() < 0.5 ? 'left' : 'right';
+                enemy.classList.add(randomDirection);
+
+                // 随机背景样式
+                const randomBackground = `random-${Math.floor(Math.random() * 40) + 1}`;
+                enemy.classList.add(randomBackground);
+
+                // 生成在视口内可见的位置
+                enemy.style.left = `${randomDirection === 'left' ? viewportWidth - 100 : 100}px`;
+                enemy.moveFunction = randomDirection === 'left' ? moveLeft : moveRight;
+                enemy.boundary = randomDirection === 'left' ? 0 : viewportWidth - 100;
+
+                // 初始化敌人缩放比例
+                enemy.scale = 1;
+
+                // 初始化敌人尾迹生成时间
+                enemy.lastTrailTime = 0;
+
+                // 如果敌人从右边出现，翻转血条
+                if (randomDirection === 'left') {
+                    enemyHealthBar.style.transform = 'scaleX(-1)';
+                }
+
+                enemiesContainer.appendChild(enemy);
+                enemies.push({ element: enemy, health: enemyHealth });
+            }
+
+            function moveLeft(position, boundary, element) {
+                const now = Date.now();
+
+                // 控制尾迹生成间隔（300ms）
+                if (now - element.lastTrailTime >= 300) {
+                    const enemyRect = element.getBoundingClientRect();
+                    // 在敌人的右侧生成尾迹
+                    spawnEnemyParticle(enemyRect.right, enemyRect.top + enemyRect.height / 2);
+                    element.lastTrailTime = now;
+                }
+                return Math.max(boundary, position - 1);
+            }
+
+            function moveRight(position, boundary, element) {
+                const now = Date.now();
+
+                // 控制尾迹生成间隔（300ms）
+                if (now - element.lastTrailTime >= 300) {
+                    const enemyRect = element.getBoundingClientRect();
+                    // 在敌人的左侧生成尾迹
+                    spawnEnemyParticle(enemyRect.left, enemyRect.top + enemyRect.height / 2);
+                    element.lastTrailTime = now;
+                }
+                return Math.min(boundary, position + 1);
+            }
+
+
+            function updateEnemiesPosition() {
+                enemies.forEach((enemy, index) => {
+                    const newPosition = enemy.element.moveFunction(enemy.element.offsetLeft, enemy.element.boundary, enemy.element);
+
+                    // 更新敌人位置
+                    enemy.element.style.left = `${newPosition}px`;
+
+                    // 如果敌人到达边界，移除敌人
+                    if (newPosition === enemy.element.boundary) {
+                        enemy.element.remove();
+                        enemies.splice(index, 1);
+                    }
+                });
+            }
+            var divMeatImage = document.getElementsByClassName('meat-image');
+
             function checkCollision(rect1, rect2) {
                 return !(rect1.right < rect2.left || rect1.left > rect2.right ||
-                         rect1.bottom < rect2.top || rect1.top > rect2.bottom);
+                    rect1.bottom < rect2.top || rect1.top > rect2.bottom);
             }
             const gameController = {
                 intervals: [],
                 timeouts: [],
                 animations: [],
-                elementsToRemove: ["hero","enemies-container","joystick-container","rotate-message","audio_player"]
+                elementsToRemove: [hero, enemiesContainer, divMeatImage].filter(element => element instanceof Node)
             };
-            // 停止所有脚本
+
+
             function stopAllScripts() {
                 // 清除所有定时器
                 gameController.intervals.forEach(clearInterval);
@@ -795,52 +868,94 @@ function updateEnemiesPosition() {
                 // 停止动画帧
                 gameController.animations.forEach(cancelAnimationFrame);
                 // 移除指定元素
-                gameController.elementsToRemove.forEach(hero => {
-                    if (document.documentElement.contains()) return;
-                    hero.remove();
+                gameController.elementsToRemove.forEach(element => {
+                    // 检查元素是否为有效的 DOM 节点
+                    if (element && element instanceof Node && document.documentElement.contains(element)) {
+                        element.remove();
+                    }
                 });
             }
+
 
             // 自定义提示方法
             function showCustomAlert(message) {
                 const alertBox = document.querySelector('.custom-alert');
                 const content = alertBox.querySelector('.alert-content');
                 const confirmBtn = alertBox.querySelector('.alert-confirm');
-                
+
                 content.textContent = message;
                 alertBox.style.display = 'block';
-                
+
                 // 确认按钮事件处理
-                confirmBtn.onclick = function() {
+                confirmBtn.onclick = function () {
                     alertBox.style.display = 'none';
                     refreshPage();
                 }
             }
 
-            // 修改后的碰撞处理
+            function spawnBloodParticles(left, top) {
+                for (let i = 0; i < 6; i++) {
+                    const meatImage = document.createElement('div');
+                    meatImage.classList.add('meat-image');
+
+                    // 设置初始位置
+                    meatImage.style.left = `${left}px`;
+                    meatImage.style.top = `${top}px`;
+
+                    // 设置随机布朗运动参数
+                    meatImage.style.setProperty('--random-x', Math.random() - 0.5);
+                    meatImage.style.setProperty('--random-y', Math.random() - 0.5);
+                    // 移除死亡图像以避免无限增加
+                    setTimeout(() => meatImage.remove(), 3000);
+
+                    document.body.appendChild(meatImage);
+                }
+            }
+            function spawnEatParticles(left, top) {
+                for (let i = 0; i < 1; i++) {
+                    const eatImage = document.createElement('div');
+                    eatImage.classList.add('eat-image');
+
+                    // 设置初始位置
+                    eatImage.style.left = `${left}px`;
+                    eatImage.style.top = `${top}px`;
+
+                    // 设置随机布朗运动参数 
+                    // 移动速度
+                    // 移除死亡图像以避免无限增加
+                    setTimeout(() => eatImage.remove(), 1000);
+
+                    document.body.appendChild(eatImage);
+                }
+
+
+            }
+
+            // 碰撞处理
             function handleCollisions() {
                 const heroRect = hero.getBoundingClientRect();
                 enemies.forEach((enemy, index) => {
                     const enemyRect = enemy.element.getBoundingClientRect();
                     if (checkCollision(heroRect, enemyRect)) {
                         if (heroHealth > enemy.health) {
-                        enemy.element.remove();
-                        enemies.splice(index, 1);
-                        heroHealth += Math.floor(enemy.health * 0.15);
-                        updateHeroHealthBar();
-    
-                        // 生成死亡图像和血迹粒子
-                        spawnDeathImage(enemyRect.left, enemyRect.top);
-                    } 
-                    else {
-                    showCustomAlert('Gamer Over!');
-                    stopAllScripts();
-                    }
+                            enemy.element.remove();
+                            enemies.splice(index, 1);
+                            heroHealth += Math.floor(enemy.health * 0.15);
+                            updateHeroHealthBar();
+
+                            // 生成死亡图像和血迹粒子
+                            spawnEatParticles(enemyRect.left, enemyRect.top);
+                            spawnDeathImage(enemyRect.left, enemyRect.top);
+                            spawnBloodParticles(enemyRect.left, enemyRect.top);
+                        } else {
+                            showCustomAlert('Gamer Over!');
+                            stopAllScripts();
+                        }
                     }
 
                 });
             }
-            
+
             // 生成死亡图像
             function spawnDeathImage(left, top) {
                 const deathImage = document.createElement('div');
@@ -855,7 +970,7 @@ function updateEnemiesPosition() {
                 deathImage.style.setProperty('--random-y', Math.random() - 0.5);
 
                 // 移除死亡图像以避免无限增加
-                setTimeout(() => deathImage.remove(), 6000);
+                setTimeout(() => deathImage.remove(), 3000);
 
                 document.body.appendChild(deathImage);
             }
@@ -877,7 +992,7 @@ function updateEnemiesPosition() {
             gameLoop();
 
             // 返回按钮事件
-            document.getElementById('backButton').addEventListener('click', function() {
+            document.getElementById('backButton').addEventListener('click', function () {
                 try {
                     console.log('返回按钮被点击');
                     window.open('index.html', '_self');
@@ -906,36 +1021,45 @@ function updateEnemiesPosition() {
                 resetKnobPosition();
             });
             // 定时生成气泡
-            const spawnBubbleInterval = setInterval(spawnBubble, 500);
+            const spawnBubbleInterval = setInterval(spawnBubble, 3000);
 
-// 生成气泡
-function spawnBubble() {
-    const bubble = document.createElement('div');
-    bubble.classList.add('bubble');
+            // 生成气泡
+            function spawnBubble() {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
 
-    // 随机位置
-    const randomLeft = Math.random() * (viewportWidth - 20);
-    bubble.style.left = `${randomLeft}px`;
+                // 随机位置
+                const randomLeft = Math.random() * (viewportWidth - 20);
+                bubble.style.left = `${randomLeft}px`;
 
-    // 随机大小
-    const randomSize = Math.random() * 15 + 10;
-    bubble.style.width = `${randomSize}px`;
-    bubble.style.height = `${randomSize}px`;
+                // 随机大小
+                const randomSize = Math.random() * 15 + 10;
+                bubble.style.width = `${randomSize}px`;
+                bubble.style.height = `${randomSize}px`;
 
-    document.body.appendChild(bubble);
+                document.body.appendChild(bubble);
 
-    // // 播放气泡生成音效
-    // const bubbleSound = new Audio('sounds/Pop.mp3');
-    // bubbleSound.play();
+                const bubbleSound = new Audio('sounds/Pop.mp3');
+                bubbleSound.play();
 
-    // 移除气泡以避免无限增加
-    setTimeout(() => bubble.remove(), 3000);
-}
-
+                // 移除气泡以避免无限增加
+                setTimeout(() => bubble.remove(), 30000);
             }
-        );
+
+            window.addEventListener('load', function () {
+                const SeaBGMSound_2 = new Audio('sounds/SeaBGM2.mp3');
+                SeaBGMSound_2.play();
+                SeaBGMSound_2.loop = true;
+            });
+            window.addEventListener('load', function () {
+                const SeaBGMSound = new Audio('sounds/SeaBGM.mp3');
+                SeaBGMSound.play();
+                SeaBGMSound.loop = true;
+            });
+        })
     </script>
     <script src="js/landscape.js"></script>
     <script src="js/music_player.js"></script>
 </body>
+
 </html>
